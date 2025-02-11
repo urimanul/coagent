@@ -9,7 +9,7 @@ import os
 
 load_dotenv()
 
-if not os.environ.get("GCOHERE_API_KEY"):
+if not os.environ.get("COHERE_API_KEY"):
     os.environ["COHERE_API_KEY"] = getpass.getpass("COHERE API Key:")
 
 co = cohere.ClientV2(api_key=os.environ.get("COHERE_API_KEY"))
