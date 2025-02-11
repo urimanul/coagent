@@ -353,6 +353,10 @@ def run_assistant(query, messages=None):
 
     return messages
 
+messages = run_assistant(
+    "【楽天モバイル】利用獲得ポイントのお知らせがあるか確認して、タイトルは確認するお知らせにして3日後のカレンダーに午後12時に1時間のイベントを作成してください。"
+)
+
 
 # Streamlit UI
 st.title("COHERE AGENT")
