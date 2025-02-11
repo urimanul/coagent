@@ -343,6 +343,7 @@ def run_assistant(query, messages=None):
     print("Response:")
     print(response.message.content[0].text)
     print("=" * 50)
+    st.write(response.message.content[0].text)
 
     # Print citations (if any)
     if response.message.citations:
