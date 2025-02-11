@@ -360,11 +360,3 @@ messages = run_assistant(
 
 # Streamlit UI
 st.title("COHERE AGENT")
-
-# Input for AGENT Prompt
-prompt = st.text_input("プロンプトを入力してください:")
-
-# Button to get response
-if st.button("生成"):
-    messages = run_assistant(prompt)
-    st.write(messages)
