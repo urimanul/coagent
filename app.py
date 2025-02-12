@@ -21,9 +21,10 @@ def vote(item):
     st.write(f"Why is {item} your favorite?")
     reason = st.text_input("Because...")
     if st.button("Submit"):
+        st.session_state['key'] = 'value'
         st.session_state.vote = {"item": item, "reason": reason}
         st.rerun()
-        st.write(f"You voted for {st.session_state.vote['item']} because {st.session_state.vote['reason']}")
+        st.write(f"You voted for {st.session_state.['key']} because {st.session_state.['key']}")
 
 def unicode_unescape(data):
     if isinstance(data, dict):
