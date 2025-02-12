@@ -170,17 +170,7 @@ tools = [
 ]
 
 
-# Create custom system message
-system_message = """## Task and Context
-あなたは、新入社員の最初の 1 週間を支援するアシスタントです。あなたは彼らの質問に答え、彼らのニーズに応えます。"""
 
-
-# Step 1: Get user message
-#message = "IT 部門とのセットアップについて何かメッセージはありますか?"
-#message = "福谷安子さんからのメッセージはありますか?もし、あれば内容を表示してください。"
-#message = "活動領域はどうなりますか？"
-#message = "料金の支払い条件について教えてください。"
-message = "楽天からのメッセージはありますか?もし、あればその内容を表示してください。"
 
 
 
@@ -288,7 +278,11 @@ prompt = st.text_input("プロンプトを入力してください:")
 
 # Button to get response
 if st.button("生成"):
-    messages = run_assistant(prompt)
+    # Create custom system message
+    system_message = """## Task and Context
+    あなたは、新入社員の最初の 1 週間を支援するアシスタントです。あなたは彼らの質問に答え、彼らのニーズに応えます。"""
+    
+    #messages = run_assistant(prompt)
 
     # Add the system and user messages to the chat history
     messages = [
@@ -369,5 +363,8 @@ if st.button("生成"):
         print("\nCITATIONS:")
         for citation in response.message.citations:
             print(citation, "\n")
+
+    # Step 1: Get user message
+    message = "楽天からのメッセージはありますか?もし、あればその内容を表示してください。"
             
     st.write(response.message.content[0].text)
