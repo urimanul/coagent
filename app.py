@@ -69,7 +69,8 @@ def search_emails(query):
 
 def create_calendar_event(date: str, time: str, duration: int):
     #title = st.input( .input("タイトルを入力してください")
-    title = "スケジュール"
+    #title = "スケジュール"
+    title = st.session_state.vote['reason']
 
     @st.dialog("イベントタイトル")
     def vote(item):
@@ -201,7 +202,8 @@ if "vote" not in st.session_state:
     #if st.button("B"):
         #vote("B")
 else:
-    f"You voted for {st.session_state.vote['item']} because {st.session_state.vote['reason']}"
+    #f"You voted for {st.session_state.vote['item']} because {st.session_state.vote['reason']}"
+    f"{st.session_state.vote['reason']}がタイトルとして入力されました。"
 
 
 # Input for AGENT Prompt
