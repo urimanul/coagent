@@ -395,7 +395,6 @@ if st.button("実行"):
     st.write(responded)
 
 if st.button("表示"):
-    global rsn
     resp = vote("A")
     st.write("Response")
     st.write(resp)
