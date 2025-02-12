@@ -6,7 +6,6 @@ from datetime import datetime, timedelta
 from dotenv import load_dotenv
 import getpass
 import os
-from prompty import Prompty
 
 load_dotenv()
 
