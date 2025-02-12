@@ -63,28 +63,6 @@ def create_calendar_event(date: str, time: str, duration: int):
     #title = st.input( .input("タイトルを入力してください")
     title = "スケジュール"
 
-    prompt = Prompty(
-    name='Stream Chat',
-    description='Chat with stream enabled.',
-    model={
-        'api': 'chat',
-        'configuration': {
-            'type': 'azure_openai',
-            'azure_deployment': 'gpt-35-turbo'
-        },
-        'parameters': {
-            'temperature': 0.2,
-            'stream': True
-        }
-    },
-    inputs={
-        'first_name': {'type': 'string'},
-        'last_name': {'type': 'string'},
-        'question': {'type': 'string'},
-        'chat_history': {'type': 'list'}
-    }
-    )
-
     headers = {
         'SPOAuthentication': 'Hanipman',
     }
