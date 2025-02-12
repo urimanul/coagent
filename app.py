@@ -69,6 +69,7 @@ def search_emails(query):
 def create_calendar_event(date: str, time: str, duration: int):
     #title = st.input( .input("タイトルを入力してください")
     #title = "スケジュール"
+    st.write(st.session_state.vote.title)
     title = st.session_state.vote.title
 
     headers = {
