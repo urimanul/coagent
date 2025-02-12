@@ -393,4 +393,5 @@ if st.button("実行"):
 
 if st.button("表示"):
     resp = vote("A")
-    st.write(resp)
+    st.write("Response")
+    st.write(st.session_state.vote['item'])
