@@ -198,7 +198,7 @@ tools = [
 ]
 
 # Streamlit UI
-st.title("COHERE AGENT")
+st.title("RYH CO-AGENT")
 
 if "vote" not in st.session_state:
     st.write("タイトル入力")
