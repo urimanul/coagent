@@ -305,6 +305,7 @@ def run_assistant(query, messages=None):
         )
 
         print("Step3")
+        
         # Step 3: Get tool results
         for idx, tc in enumerate(response.message.tool_calls):
             tool_result = functions_map[tc.function.name](
