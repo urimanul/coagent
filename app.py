@@ -24,7 +24,6 @@ def vote(item):
         st.session_state['key'] = reason
         st.session_state['vote'] = {"item": item, "reason": reason}
         st.rerun()
-        st.toast('タイトルが設定されました。実行ボタンを押してください。')
 
 def unicode_unescape(data):
     if isinstance(data, dict):
@@ -205,6 +204,7 @@ if "vote" not in st.session_state:
 else:
     #f"You voted for {st.session_state.vote['item']} because {st.session_state.vote['reason']}"
     f"{st.session_state.vote['reason']}がタイトルとして入力されました。"
+    st.toast('タイトルが設定されました。実行ボタンを押してください。')
 
 
 # Input for AGENT Prompt
