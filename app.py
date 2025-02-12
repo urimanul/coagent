@@ -390,18 +390,23 @@ prompt1 = st.text_input("プロンプトを入力してください:","【楽天
 
 # Button to get response
 if st.button("実行"):
-    if "vote" in st.session_state:
-        model = "command-r-plus-08-2024"
+    with st.status("処理中...", expanded=False) as status:
+        if "vote" in st.session_state:
+            model = "command-r-plus-08-2024"
 
-        system_message = """## Task and Context
-        あなたは、新入社員の最初の 1 週間を支援するアシスタントです。あなたは彼らの質問に答え、彼らのニーズに応えます。"""
+            system_message = """## Task and Context
+            あなたは、新入社員の最初の 1 週間を支援するアシスタントです。あなたは彼らの質問に答え、彼らのニーズに応えます。"""
 
 
-        messagesrun = run_assistant(
-            prompt1
+            messagesrun = run_assistant(
+                prompt1
+            )
+
+            st.write(responded)
+
+        status.update(
+            label="✅ 完了!", state="complete", expanded=False
         )
-
-        st.write(responded)
 
     else:
         vote("タイトル")
