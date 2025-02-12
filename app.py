@@ -362,7 +362,7 @@ if st.button("実行"):
     model = "command-r-plus-08-2024"
 
     system_message = """## Task and Context
-    You are an assistant who assists new employees of Co1t with their first week. You respond to their questions and assist them with their needs."""
+    あなたは、新入社員の最初の 1 週間を支援するアシスタントです。あなたは彼らの質問に答え、彼らのニーズに応えます。"""
 
 
     messagesrun = run_assistant(
