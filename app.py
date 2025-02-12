@@ -118,7 +118,7 @@ def create_calendar_event(date: str, time: str, duration: int):
     #events = eval(result)
     #print(result)'''
     
-    resp = vote()
+    resp = vote(date)
     st.write(resp)
     global responded
     responded = f"{title}を{date} の {time} に {duration} 時間のイベントを作成しました。"
