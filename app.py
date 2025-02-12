@@ -178,7 +178,7 @@ tools = [
 st.title("COHERE AGENT")
 
 # Input for AGENT Prompt
-prompt = st.text_input("プロンプトを入力してください:","楽天からのメッセージはありますか?もし、あればその内容を表示してください。")
+prompt = st.text_input("プロンプトを入力してください:","楽天からのメッセージはありますか?もし、あればその件名、送信者、URLを表示してください。")
 
 # Button to get response
 if st.button("生成"):
