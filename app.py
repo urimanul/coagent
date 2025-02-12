@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 from dotenv import load_dotenv
 import getpass
 import os
+from prompty import Prompty
 
 load_dotenv()
 
@@ -62,26 +63,27 @@ def create_calendar_event(date: str, time: str, duration: int):
     #title = st.input( .input("タイトルを入力してください")
     title = "スケジュール"
 
-    modal = Modal(
-    "Demo Modal", 
-    key="demo-modal",
-    
-    # Optional
-    padding=20,    # default value
-    max_width=744  # default value
+    prompt = Prompty(
+    name='Stream Chat',
+    description='Chat with stream enabled.',
+    model={
+        'api': 'chat',
+        'configuration': {
+            'type': 'azure_openai',
+            'azure_deployment': 'gpt-35-turbo'
+        },
+        'parameters': {
+            'temperature': 0.2,
+            'stream': True
+        }
+    },
+    inputs={
+        'first_name': {'type': 'string'},
+        'last_name': {'type': 'string'},
+        'question': {'type': 'string'},
+        'chat_history': {'type': 'list'}
+    }
     )
-
-    open_modal = st.button("Open")
-    if open_modal:
-        modal.open()
-
-    if modal.is_open():
-        with modal.container():
-            st.write("Text goes here")
-
-            st.write("Some fancy text")
-            value = st.checkbox("Check me")
-            st.write(f"Checkbox checked: {value}")
 
     headers = {
         'SPOAuthentication': 'Hanipman',
