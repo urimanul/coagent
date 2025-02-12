@@ -408,6 +408,6 @@ if st.button("実行"):
             label="✅ 完了!", state="complete", expanded=False
         )
 
-    else:
-        vote("タイトル")
-        st.toast('タイトルが設定されました。実行ボタンを押してください。')
+        else:
+            vote("タイトル")
+            st.toast('タイトルが設定されました。実行ボタンを押してください。')
