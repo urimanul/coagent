@@ -62,28 +62,19 @@ def create_calendar_event(date: str, time: str, duration: int):
     #title = st.input( .input("タイトルを入力してください")
     title = "スケジュール"
 
-    @st.dialog("Cast your vote")
+    @st.dialog("イベントタイトル")
     def vote(item):
-        st.write(f"Why is {item} your favorite?")
-        reason = st.text_input("Because...")
+        st.write(f"イベントタイトル")
+        title = st.text_input("イベントタイトルを入力してください。")
         if st.button("Submit"):
-            st.session_state.vote = {"item": item, "reason": reason}
+            st.session_state.vote = {"title": title}
             st.rerun()
 
-    if "vote" not in st.session_state:
-        st.write("Vote for your favorite")
-        if st.button("A"):
-            vote("A")
-        if st.button("B"):
-            vote("B")
-    else:
-        f"You voted for {st.session_state.vote['item']} because {st.session_state.vote['reason']}"
-
-    headers = {
-        'SPOAuthentication': 'Hanipman',
-    }
+            headers = {
+                'SPOAuthentication': 'Hanipman',
+            }
     
-    #start = date+' '+time
+    '''#start = date+' '+time
     start = datetime.strptime(date+' '+time+':00', '%Y/%m/%d %H:%M:%S')
     #start = st.strftime('%Y/%m/%d %H:%M:%S')
     #sdatetime = datetime.strptime(start, '%Y-%m-%d %H:%M:%S')
@@ -91,34 +82,22 @@ def create_calendar_event(date: str, time: str, duration: int):
     dt = datetime.strptime(date+' '+time+':00', '%Y/%m/%d %H:%M:%S')
     new_dt = dt + timedelta(hours=duration)
     end = new_dt.strftime('%Y-%m-%d %H:%M:%S')
-    #end = datetime.strptime(str(new_dt), '%Y/%m/%d %H:%M:%S')
+    #end = datetime.strptime(str(new_dt), '%Y/%m/%d %H:%M:%S')'''
     
-    #print(start)
-    #print(end)
-    #sqlcmd = f"https://www.ryhintl.com/scripts/exc2spo.exe/getjson?sqlcmd=insert into O365GW.Events (subject,organizer_emailAddress_address,UserId) #values('スケジュール','agent@mail.com','60cdf6be-44df-4c0b-aa34-72ad4380e6c9')"
+            sqlcmd = f"https://www.ryhintl.com/scripts/exc2spo.exe/getjson?sqlcmd=insert into O365GW.Events (subject,organizer_emailAddress_address,UserId) values('{title}','agent@mail.com','60cdf6be-44df-4c0b-aa34-72ad4380e6c9')"
     
-    sqlcmd = f"https://www.ryhintl.com/scripts/exc2spo.exe/getjson?sqlcmd=insert into O365GW.Events (subject,organizer_emailAddress_address,UserId) values('{title}','agent@mail.com','60cdf6be-44df-4c0b-aa34-72ad4380e6c9')"
-    
-    #print(sqlcmd)
-    
-    '''sqlcmd = f"https://www.ryhintl.com/scripts/exc2spo.exe/getjson?sqlcmd=insert into O365GW.Events (subject,start_dateTime,end_dateTime,organizer_emailAddress_address) values('{title}','{start}','{end}','agent@mail.com') where UserId = '60cdf6be-44df-4c0b-aa34-72ad4380e6c9'"'''
-    
-    response = requests.get(sqlcmd, headers=headers)
+            response = requests.get(sqlcmd, headers=headers)
 
-    if response.status_code == 200:
-        result = response.content.decode('utf-8')
-        
-    #events = eval(result)
-    #print(result)
+            if response.status_code == 200:
+                result = response.content.decode('utf-8') 
     
+            global responded
+            responded = f"{title}を{date} の {time} に {duration} 時間のイベントを作成しました。"
     
-    global responded
-    responded = f"{title}を{date} の {time} に {duration} 時間のイベントを作成しました。"
-    
-    return {
-        "is_success": True,
-        "message": f"{title}を{date} の {time} に {duration} 時間のイベントを作成しました。",
-    }
+            return {
+                "is_success": True,
+                "message": f"{title}を{date} の {time} に {duration} 時間のイベントを作成しました。",
+            }
 
 
 functions_map = {
