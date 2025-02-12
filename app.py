@@ -319,7 +319,7 @@ def run_assistant(query, messages=None):
                         "document": {"data": json.dumps(data)},
                     }
                 )
-                # Optional: add an "id" field in the "document" object, otherwise IDs are auto-generated
+            # Optional: add an "id" field in the "document" object, otherwise IDs are auto-generated
             messages.append(
                 {
                     "role": "tool",
@@ -329,6 +329,7 @@ def run_assistant(query, messages=None):
             )
 
         print("Step4")
+        print(messages)
         # Step 4: Generate response and citations
         response = co.chat(
             model=model, messages=messages, tools=tools
