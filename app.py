@@ -183,88 +183,10 @@ system_message = """## Task and Context
 message = "楽天からのメッセージはありますか?もし、あればその内容を表示してください。"
 
 
-# Add the system and user messages to the chat history
-messages = [
-    {"role": "system", "content": system_message},
-    {"role": "user", "content": message},
-]
-
-# Step 2: Tool planning and calling
-response = co.chat(
-    model="command-r-plus-08-2024", messages=messages, tools=tools
-)
-
-if response.message.tool_calls:
-    print("Tool plan:")
-    print(response.message.tool_plan, "\n")
-    print("Tool calls:")
-    for tc in response.message.tool_calls:
-        print(
-            f"Tool name: {tc.function.name} | Parameters: {tc.function.arguments}"
-        )
-
-    # Append tool calling details to the chat history
-    messages.append(
-        {
-            "role": "assistant",
-            "tool_calls": response.message.tool_calls,
-            "tool_plan": response.message.tool_plan,
-        }
-    )
 
 
-# Step 3: Tool execution
-for tc in response.message.tool_calls:
-    tool_result = functions_map[tc.function.name](
-        **json.loads(tc.function.arguments)
-    )
-    tool_content = []
-    for data in tool_result:
-        tool_content.append(
-            {
-                "type": "document",
-                "document": {"data": json.dumps(data)},
-            }
-        )
-        # Optional: add an "id" field in the "document" object, otherwise IDs are auto-generated
-    # Append tool results to the chat history
-    messages.append(
-        {
-            "role": "tool",
-            "tool_call_id": tc.id,
-            "content": tool_content,
-        }
-    )
 
-    print("Tool results:")
-    for result in tool_content:
-        decoded_data = unicode_unescape(result)
-        print(decoded_data)
-
-
-# Step 4: Response and citation generation
-response = co.chat(
-    model="command-r-plus-08-2024", messages=messages, tools=tools
-)
-
-# Append assistant response to the chat history
-messages.append(
-    {"role": "assistant", "content": response.message.content[0].text}
-)
-
-# Print final response
-print("Response:")
-print(response.message.content[0].text)
-print("=" * 50)
-
-# Print citations (if any)
-if response.message.citations:
-    print("\nCITATIONS:")
-    for citation in response.message.citations:
-        print(citation, "\n")
-
-
-model = "command-r-plus-08-2024"
+'''model = "command-r-plus-08-2024"
 
 system_message = """## Task and Context
 You are an assistant who assists new employees of Co1t with their first week. You respond to their questions and assist them with their needs."""
@@ -355,8 +277,97 @@ def run_assistant(query, messages=None):
 
 messages = run_assistant(
     "【楽天モバイル】利用獲得ポイントのお知らせがあるか確認して、タイトルは確認するお知らせにして3日後のカレンダーに午後12時に1時間のイベントを作成してください。"
-)
+)'''
 
 
 # Streamlit UI
 st.title("COHERE AGENT")
+
+# Input for AGENT Prompt
+prompt = st.text_input("プロンプトを入力してください:")
+
+# Button to get response
+if st.button("生成"):
+    messages = run_assistant(prompt)
+
+    # Add the system and user messages to the chat history
+    messages = [
+        {"role": "system", "content": system_message},
+        {"role": "user", "content": message},
+    ]
+
+    # Step 2: Tool planning and calling
+    response = co.chat(
+        model="command-r-plus-08-2024", messages=messages, tools=tools
+    )
+
+    if response.message.tool_calls:
+        print("Tool plan:")
+        print(response.message.tool_plan, "\n")
+        print("Tool calls:")
+        for tc in response.message.tool_calls:
+            print(
+                f"Tool name: {tc.function.name} | Parameters: {tc.function.arguments}"
+            )
+
+        # Append tool calling details to the chat history
+        messages.append(
+            {
+                "role": "assistant",
+                "tool_calls": response.message.tool_calls,
+                "tool_plan": response.message.tool_plan,
+            }
+        )
+
+
+    # Step 3: Tool execution
+    for tc in response.message.tool_calls:
+        tool_result = functions_map[tc.function.name](
+            **json.loads(tc.function.arguments)
+        )
+        tool_content = []
+        for data in tool_result:
+            tool_content.append(
+                {
+                    "type": "document",
+                    "document": {"data": json.dumps(data)},
+                }
+            )
+            # Optional: add an "id" field in the "document" object, otherwise IDs are auto-generated
+        # Append tool results to the chat history
+        messages.append(
+            {
+                "role": "tool",
+                "tool_call_id": tc.id,
+                "content": tool_content,
+            }
+        )
+
+        print("Tool results:")
+        for result in tool_content:
+            decoded_data = unicode_unescape(result)
+            print(decoded_data)
+
+
+    # Step 4: Response and citation generation
+    response = co.chat(
+        model="command-r-plus-08-2024", messages=messages, tools=tools
+    )
+
+    # Append assistant response to the chat history
+    messages.append(
+        {"role": "assistant", "content": response.message.content[0].text}
+    )
+
+    # Print final response
+    print("Response:")
+    print(response.message.content[0].text)
+    print("=" * 50)
+
+    # Print citations (if any)
+    if response.message.citations:
+        print("\nCITATIONS:")
+        for citation in response.message.citations:
+            print(citation, "\n")
+            
+    st.write(response.message.content[0].text)
