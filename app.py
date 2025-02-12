@@ -71,10 +71,7 @@ def search_emails(query):
 
 def create_calendar_event(date: str, time: str, duration: int):
     #title = st.input( .input("タイトルを入力してください")
-    #title = "スケジュール"
-    global mytitle
-    st.write(mytitle)
-    title = mytitle
+    title = "スケジュール"
 
     headers = {
         'SPOAuthentication': 'Hanipman',
@@ -375,7 +372,6 @@ prompt1 = st.text_input("プロンプトを入力してください:","【楽天
 
 # Button to get response
 if st.button("実行"):
-    vote("Title")
     model = "command-r-plus-08-2024"
 
     system_message = """## Task and Context
