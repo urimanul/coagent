@@ -16,7 +16,7 @@ if not os.environ.get("COHERE_API_KEY"):
 
 co = cohere.ClientV2(api_key=os.environ.get("COHERE_API_KEY"))
 
-@st.dialog("")
+@st.dialog(" ")
 def vote(item):
     #st.write(f"タイトル入力")
     reason = st.text_input("タイトルを入力してください")
