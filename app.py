@@ -10,7 +10,6 @@ import os
 load_dotenv()
 
 responded = None
-mytitle = None
 
 if not os.environ.get("COHERE_API_KEY"):
     os.environ["COHERE_API_KEY"] = getpass.getpass("COHERE API Key:")
@@ -22,8 +21,6 @@ def vote(item):
     st.write(f"イベントのタイトル")
     reason = st.text_input("タイトル")
     if st.button("作成"):
-        global mytitle
-        mytitle = reason
         st.session_state.vote = {"title": reason}
         st.rerun()
 
