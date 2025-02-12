@@ -24,6 +24,8 @@ def vote(item):
         st.session_state.vote = {"item": item, "reason": reason}
         st.rerun()
 
+    return reason
+
 def unicode_unescape(data):
     if isinstance(data, dict):
         return {key: unicode_unescape(value) for key, value in data.items()}
@@ -388,3 +390,7 @@ if st.button("実行"):
     )
 
     st.write(responded)
+
+if st.button("表示"):
+    resp = vote("A")
+    st.write(resp)
