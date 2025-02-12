@@ -16,11 +16,11 @@ if not os.environ.get("COHERE_API_KEY"):
 
 co = cohere.ClientV2(api_key=os.environ.get("COHERE_API_KEY"))
 
-@st.dialog("Cast your vote")
+@st.dialog("Subject")
 def vote(item):
-    st.write(f"Why is {item} your favorite?")
-    reason = st.text_input("Because...")
-    if st.button("Submit"):
+    st.write(f"タイトル入力")
+    reason = st.text_input("タイトルを入力してください")
+    if st.button("確定"):
         st.session_state['key'] = reason
         st.session_state['vote'] = {"item": item, "reason": reason}
         st.rerun()
@@ -195,11 +195,11 @@ tools = [
 st.title("COHERE AGENT")
 
 if "vote" not in st.session_state:
-    st.write("Vote for your favorite")
-    if st.button("A"):
-        vote("A")
-    if st.button("B"):
-        vote("B")
+    st.write("タイトル入力")
+    if st.button("タイトル入力"):
+        vote("タイトル")
+    #if st.button("B"):
+        #vote("B")
 else:
     f"You voted for {st.session_state.vote['item']} because {st.session_state.vote['reason']}"
 
