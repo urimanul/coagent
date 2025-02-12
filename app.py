@@ -57,7 +57,8 @@ def search_emails(query):
 
 
 def create_calendar_event(date: str, time: str, duration: int):
-    title = input("タイトルを入力してください")
+    #title = st.input( .input("タイトルを入力してください")
+    title = "スケジュール"
     
     headers = {
         'SPOAuthentication': 'Hanipman',
