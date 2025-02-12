@@ -199,6 +199,16 @@ tools = [
 # Streamlit UI
 st.title("COHERE AGENT")
 
+if "vote" not in st.session_state:
+    st.write("Vote for your favorite")
+    if st.button("A"):
+        vote("A")
+    if st.button("B"):
+        vote("B")
+else:
+    f"You voted for {st.session_state.vote['item']} because {st.session_state.vote['reason']}"
+
+
 # Input for AGENT Prompt
 prompt = st.text_input("プロンプトを入力してください:","楽天からのメッセージはありますか?もし、あればその件名、送信者、URLを表示してください。")
 
@@ -394,12 +404,3 @@ if st.button("実行"):
     )
 
     st.write(responded)
-
-if "vote" not in st.session_state:
-    st.write("Vote for your favorite")
-    if st.button("A"):
-        vote("A")
-    if st.button("B"):
-        vote("B")
-else:
-    f"You voted for {st.session_state.vote['item']} because {st.session_state.vote['reason']}"
