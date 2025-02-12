@@ -23,6 +23,7 @@ def vote(item):
     reason = st.text_input("Because...")
     global rsn
     rsn = reason
+    st.write(rsn)
     if st.button("Submit"):
         st.session_state.vote = {"item": item, "reason": reason}
         st.rerun()
