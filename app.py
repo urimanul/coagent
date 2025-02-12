@@ -405,7 +405,7 @@ if st.button("実行"):
             st.write(responded)
 
             status.update(
-                label="✅ 完了!", state="complete", expanded=False
+                label="✅ 完了しました！", state="complete", expanded=False
             )
 
         else:
