@@ -61,6 +61,9 @@ def search_emails(query):
 def create_calendar_event(date: str, time: str, duration: int):
     #title = st.input( .input("タイトルを入力してください")
     title = "スケジュール"    
+
+    st.chat_input(placeholder="Your message", *, key=None, max_chars=None, disabled=False, on_submit=None, args=None, kwargs=None)
+    
     headers = {
         'SPOAuthentication': 'Hanipman',
     }
