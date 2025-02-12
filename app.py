@@ -90,7 +90,7 @@ def create_calendar_event(date: str, time: str, duration: int):
         result = response.content.decode('utf-8')
         
     #events = eval(result)
-    print(result)
+    #print(result)
     
     
     
