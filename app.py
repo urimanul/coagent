@@ -350,8 +350,6 @@ def run_assistant(query, messages=None):
         for citation in response.message.citations:
             print(citation, "\n")
 
-    print(messages)
-    print(response.message.content[0].text)
     return response.message.content[0].text
 
 # Input for AGENT Prompt
