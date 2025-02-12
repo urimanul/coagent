@@ -359,4 +359,4 @@ prompt1 = st.text_input("プロンプトを入力してください:","【楽天
 if st.button("実行"):
     messagesrun = run_assistant("【楽天モバイル】利用獲得ポイントのお知らせがあるか確認して、タイトルは確認するお知らせにして3日後のカレンダーに午後12時に1時間のイベントを作成してください。")
 
-st.write(messagerun)
+st.write(messagesrun)
