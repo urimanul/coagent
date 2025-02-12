@@ -62,23 +62,6 @@ def create_calendar_event(date: str, time: str, duration: int):
     #title = st.input( .input("タイトルを入力してください")
     title = "スケジュール"
 
-    @st.dialog("Cast your vote")
-    def vote(item):
-
-    if "vote" not in st.session_state:
-        st.write("Vote for your favorite")
-        st.write(f"Why is {item} your favorite?")
-        reason = st.text_input("Because...")
-        if st.button("Submit"):
-            st.session_state.vote = {"item": item, "reason": reason}
-            st.rerun()
-        if st.button("A"):
-            vote("A")
-        if st.button("B"):
-            vote("B")
-    else:
-        f"You voted for {st.session_state.vote['item']} because {st.session_state.vote['reason']}"
-
     headers = {
         'SPOAuthentication': 'Hanipman',
     }
