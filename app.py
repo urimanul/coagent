@@ -16,11 +16,18 @@ if not os.environ.get("COHERE_API_KEY"):
 
 co = cohere.ClientV2(api_key=os.environ.get("COHERE_API_KEY"))
 
+st.session_state.disabled = True
+
 @st.dialog(" ")
 def vote(item):
     #st.write(f"タイトル入力")
     reason = st.text_input("タイトルを入力してください")
-    if st.button("確定"):
+    if not reason == "":
+        st.session_state.disabled = False
+    else:
+        st.session_state.disabled = True
+        
+    if st.button("確定", disabled=st.session_state.disabled):
         st.session_state['key'] = reason
         st.session_state['vote'] = {"item": item, "reason": reason}
         st.rerun()
