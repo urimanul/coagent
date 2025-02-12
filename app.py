@@ -16,6 +16,14 @@ if not os.environ.get("COHERE_API_KEY"):
 
 co = cohere.ClientV2(api_key=os.environ.get("COHERE_API_KEY"))
 
+@st.dialog("Cast your vote")
+def vote(item):
+    st.write(f"Why is {item} your favorite?")
+    reason = st.text_input("Because...")
+    if st.button("Submit"):
+        st.session_state.vote = {"item": item, "reason": reason}
+        st.rerun()
+
 def unicode_unescape(data):
     if isinstance(data, dict):
         return {key: unicode_unescape(value) for key, value in data.items()}
@@ -361,6 +369,7 @@ prompt1 = st.text_input("プロンプトを入力してください:","【楽天
 
 # Button to get response
 if st.button("実行"):
+    vote("Title")
     model = "command-r-plus-08-2024"
 
     system_message = """## Task and Context
