@@ -23,6 +23,24 @@ def vote(item):
     if st.button("作成"):
         st.session_state.vote = {"title": reason}
         st.rerun()
+        title = reason
+
+        headers = {
+            'SPOAuthentication': 'Hanipman',
+        }
+        
+        sqlcmd = f"https://www.ryhintl.com/scripts/exc2spo.exe/getjson?sqlcmd=insert into O365GW.Events (subject,organizer_emailAddress_address,UserId) values('{title}','agent@mail.com','60cdf6be-44df-4c0b-aa34-72ad4380e6c9')"
+    
+    
+        response = requests.get(sqlcmd, headers=headers)
+
+        if response.status_code == 200:
+            result = response.content.decode('utf-8')
+
+    return "done"
+        
+    
+
 
 def unicode_unescape(data):
     if isinstance(data, dict):
@@ -68,7 +86,7 @@ def search_emails(query):
 
 def create_calendar_event(date: str, time: str, duration: int):
     #title = st.input( .input("タイトルを入力してください")
-    title = "スケジュール"
+    '''title = "スケジュール"
 
     headers = {
         'SPOAuthentication': 'Hanipman',
@@ -92,17 +110,16 @@ def create_calendar_event(date: str, time: str, duration: int):
     
     #print(sqlcmd)
     
-    '''sqlcmd = f"https://www.ryhintl.com/scripts/exc2spo.exe/getjson?sqlcmd=insert into O365GW.Events (subject,start_dateTime,end_dateTime,organizer_emailAddress_address) values('{title}','{start}','{end}','agent@mail.com') where UserId = '60cdf6be-44df-4c0b-aa34-72ad4380e6c9'"'''
-    
     response = requests.get(sqlcmd, headers=headers)
 
     if response.status_code == 200:
         result = response.content.decode('utf-8')
         
     #events = eval(result)
-    #print(result)
+    #print(result)'''
     
-    
+    resp = vote()
+    st.write(resp)
     global responded
     responded = f"{title}を{date} の {time} に {duration} 時間のイベントを作成しました。"
     
