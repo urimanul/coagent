@@ -9,6 +9,8 @@ import os
 
 load_dotenv()
 
+responded = None
+
 if not os.environ.get("COHERE_API_KEY"):
     os.environ["COHERE_API_KEY"] = getpass.getpass("COHERE API Key:")
 
@@ -93,6 +95,8 @@ def create_calendar_event(date: str, time: str, duration: int):
     #print(result)
     
     
+    global responded
+    responded = f"{title}を{date} の {time} に {duration} 時間のイベントを作成しました。"
     
     return {
         "is_success": True,
@@ -367,4 +371,4 @@ if st.button("実行"):
         prompt1
     )
 
-    st.write(messagesrun)
+    st.write(responded)
