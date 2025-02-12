@@ -350,8 +350,9 @@ def run_assistant(query, messages=None):
         for citation in response.message.citations:
             print(citation, "\n")
 
-    #return messages
-    return response.message.content[0].text
+    print(messages)
+    print(response.message.content[0].text)
+    return messages
 
 # Input for AGENT Prompt
 prompt1 = st.text_input("プロンプトを入力してください:","【楽天モバイル】利用獲得ポイントのお知らせがあるか確認して、タイトルは確認するお知らせにして3日後のカレンダーに午後12時に1時間のイベントを作成してください。")
