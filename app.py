@@ -14,6 +14,89 @@ if not os.environ.get("COHERE_API_KEY"):
 
 co = cohere.ClientV2(api_key=os.environ.get("COHERE_API_KEY"))
 
+
+def run_assistant(query, messages=None):
+    if messages is None:
+        messages = []
+
+    if "system" not in {m.get("role") for m in messages}:
+        messages.append({"role": "system", "content": system_message})
+
+    # Step 1: get user message
+    print(f"Question:\n{query}")
+    print("=" * 50)
+
+    messages.append({"role": "user", "content": query})
+
+    # Step 2: Generate tool calls (if any)
+    response = co.chat(model=model, messages=messages, tools=tools)
+
+    while response.message.tool_calls:
+
+        print("Tool plan:")
+        print(response.message.tool_plan, "\n")
+        print("Tool calls:")
+        for tc in response.message.tool_calls:
+            print(
+                f"Tool name: {tc.function.name} | Parameters: {tc.function.arguments}"
+            )
+        print("=" * 50)
+
+        messages.append(
+            {
+                "role": "assistant",
+                "tool_calls": response.message.tool_calls,
+                "tool_plan": response.message.tool_plan,
+            }
+        )
+
+        # Step 3: Get tool results
+        for idx, tc in enumerate(response.message.tool_calls):
+            tool_result = functions_map[tc.function.name](
+                **json.loads(tc.function.arguments)
+            )
+            tool_content = []
+            for data in tool_result:
+                tool_content.append(
+                    {
+                        "type": "document",
+                        "document": {"data": json.dumps(data)},
+                    }
+                )
+                # Optional: add an "id" field in the "document" object, otherwise IDs are auto-generated
+            messages.append(
+                {
+                    "role": "tool",
+                    "tool_call_id": tc.id,
+                    "content": tool_content,
+                }
+            )
+
+        # Step 4: Generate response and citations
+        response = co.chat(
+            model=model, messages=messages, tools=tools
+        )
+
+    messages.append(
+        {
+            "role": "assistant",
+            "content": response.message.content[0].text,
+        }
+    )
+
+    # Print final response
+    print("Response:")
+    print(response.message.content[0].text)
+    print("=" * 50)
+
+    # Print citations (if any)
+    if response.message.citations:
+        print("\nCITATIONS:")
+        for citation in response.message.citations:
+            print(citation, "\n")
+
+    return messages
+
 def unicode_unescape(data):
     if isinstance(data, dict):
         return {key: unicode_unescape(value) for key, value in data.items()}
@@ -266,3 +349,14 @@ if st.button("生成"):
             print(citation, "\n")
             
     st.write(response.message.content[0].text)
+
+
+
+# Input for AGENT Prompt
+prompt = st.text_input("プロンプトを入力してください:","【楽天モバイル】利用獲得ポイントのお知らせがあるか確認して、タイトルは確認するお知らせにして3日後のカレンダーに午後12時に1時間のイベントを作成してください。")
+
+# Button to get response
+if st.button("生成"):
+    messages = run_assistant("【楽天モバイル】利用獲得ポイントのお知らせがあるか確認して、タイトルは確認するお知らせにして3日後のカレンダーに午後12時に1時間のイベントを作成してください。")
+
+st.write(message)
