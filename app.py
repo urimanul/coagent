@@ -208,8 +208,8 @@ if "vote" not in st.session_state:
         #vote("B")
 else:
     #f"You voted for {st.session_state.vote['item']} because {st.session_state.vote['reason']}"
-    f"{st.session_state.vote['reason']}がタイトルとして入力されました。実行ボタンを押してください。"
-    #st.toast('タイトルが設定されました。実行ボタンを押してください。')
+    #f"{st.session_state.vote['reason']}がタイトルとして入力されました。実行ボタンを押してください。"
+    st.toast('タイトルが設定されました。実行ボタンを押してください。')
 
 
 # Input for AGENT Prompt
