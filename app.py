@@ -283,6 +283,8 @@ if st.button("生成"):
     あなたは、新入社員の最初の 1 週間を支援するアシスタントです。あなたは彼らの質問に答え、彼らのニーズに応えます。"""
     
     #messages = run_assistant(prompt)
+    # Step 1: Get user message
+    message = "楽天からのメッセージはありますか?もし、あればその内容を表示してください。"
 
     # Add the system and user messages to the chat history
     messages = [
@@ -363,8 +365,5 @@ if st.button("生成"):
         print("\nCITATIONS:")
         for citation in response.message.citations:
             print(citation, "\n")
-
-    # Step 1: Get user message
-    message = "楽天からのメッセージはありますか?もし、あればその内容を表示してください。"
             
     st.write(response.message.content[0].text)
