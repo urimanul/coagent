@@ -201,7 +201,7 @@ tools = [
 st.title("RYH CO-AGENT")
 
 if "vote" not in st.session_state:
-    st.write("タイトル入力")
+    #st.write("タイトル入力")
     if st.button("タイトル入力"):
         vote("タイトル")
     #if st.button("B"):
