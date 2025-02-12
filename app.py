@@ -24,6 +24,7 @@ def vote(item):
         st.session_state['key'] = reason
         st.session_state['vote'] = {"item": item, "reason": reason}
         st.rerun()
+        st.toast('タイトルが設定されました。実行ボタンを押してください。')
 
 def unicode_unescape(data):
     if isinstance(data, dict):
@@ -410,4 +411,3 @@ if st.button("実行"):
 
         else:
             vote("タイトル")
-            st.toast('タイトルが設定されました。実行ボタンを押してください。')
