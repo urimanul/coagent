@@ -352,7 +352,7 @@ def run_assistant(query, messages=None):
 
     print(messages)
     print(response.message.content[0].text)
-    return messages
+    return response.message.content[0].text
 
 # Input for AGENT Prompt
 prompt1 = st.text_input("プロンプトを入力してください:","【楽天モバイル】利用獲得ポイントのお知らせがあるか確認して、タイトルは確認するお知らせにして3日後のカレンダーに午後12時に1時間のイベントを作成してください。")
@@ -365,7 +365,7 @@ if st.button("実行"):
     You are an assistant who assists new employees of Co1t with their first week. You respond to their questions and assist them with their needs."""
 
 
-    messages = run_assistant(
+    messagesrun = run_assistant(
         "【楽天モバイル】利用獲得ポイントのお知らせがあるか確認して、タイトルは確認するお知らせにして3日後のカレンダーに午後12時に1時間のイベントを作成してください。"
     )
 
