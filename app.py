@@ -304,6 +304,7 @@ def run_assistant(query, messages=None):
             }
         )
 
+        print("Step3")
         # Step 3: Get tool results
         for idx, tc in enumerate(response.message.tool_calls):
             tool_result = functions_map[tc.function.name](
@@ -326,6 +327,7 @@ def run_assistant(query, messages=None):
                 }
             )
 
+        print("Step4")
         # Step 4: Generate response and citations
         response = co.chat(
             model=model, messages=messages, tools=tools
