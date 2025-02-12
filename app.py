@@ -357,6 +357,10 @@ prompt1 = st.text_input("プロンプトを入力してください:","【楽天
 
 # Button to get response
 if st.button("実行"):
+    model = "command-r-plus-08-2024"
+
+    system_message = """## Task and Context
+    You are an assistant who assists new employees of Co1t with their first week. You respond to their questions and assist them with their needs."""
     messagesrun = run_assistant("【楽天モバイル】利用獲得ポイントのお知らせがあるか確認して、タイトルは確認するお知らせにして3日後のカレンダーに午後12時に1時間のイベントを作成してください。")
 
     st.write(messagesrun)
