@@ -10,7 +10,7 @@ import os
 load_dotenv()
 
 responded = None
-rsn = None
+rsn = "ABC"
 
 if not os.environ.get("COHERE_API_KEY"):
     os.environ["COHERE_API_KEY"] = getpass.getpass("COHERE API Key:")
