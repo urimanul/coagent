@@ -394,8 +394,3 @@ if st.button("実行"):
     )
 
     st.write(responded)
-
-if st.button("表示"):
-    vote("A")
-    st.write("state")
-    #st.write(f"You voted for {st.session_state['key']} because {st.session_state['key']}")
