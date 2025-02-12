@@ -16,10 +16,10 @@ if not os.environ.get("COHERE_API_KEY"):
 
 co = cohere.ClientV2(api_key=os.environ.get("COHERE_API_KEY"))
 
-# Initialization
+'''# Initialization
 if 'key' not in st.session_state:
     st.session_state['key'] = 'value'
-    st.session_state['vote'] = {"item": '', "reason": ''}
+    st.session_state['vote'] = {"item": '', "reason": ''}'''
 
 @st.dialog("Cast your vote")
 def vote(item):
