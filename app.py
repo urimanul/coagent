@@ -74,16 +74,6 @@ def create_calendar_event(date: str, time: str, duration: int):
                 'SPOAuthentication': 'Hanipman',
             }
     
-    '''#start = date+' '+time
-    start = datetime.strptime(date+' '+time+':00', '%Y/%m/%d %H:%M:%S')
-    #start = st.strftime('%Y/%m/%d %H:%M:%S')
-    #sdatetime = datetime.strptime(start, '%Y-%m-%d %H:%M:%S')
-    #end = date+' '+time+'+'+str(duration)
-    dt = datetime.strptime(date+' '+time+':00', '%Y/%m/%d %H:%M:%S')
-    new_dt = dt + timedelta(hours=duration)
-    end = new_dt.strftime('%Y-%m-%d %H:%M:%S')
-    #end = datetime.strptime(str(new_dt), '%Y/%m/%d %H:%M:%S')'''
-    
             sqlcmd = f"https://www.ryhintl.com/scripts/exc2spo.exe/getjson?sqlcmd=insert into O365GW.Events (subject,organizer_emailAddress_address,UserId) values('{title}','agent@mail.com','60cdf6be-44df-4c0b-aa34-72ad4380e6c9')"
     
             response = requests.get(sqlcmd, headers=headers)
