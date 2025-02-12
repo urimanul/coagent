@@ -304,8 +304,6 @@ def run_assistant(query, messages=None):
                 "tool_plan": response.message.tool_plan,
             }
         )
-
-        print("Step3")
         
         # Step 3: Get tool results
         for idx, tc in enumerate(response.message.tool_calls):
@@ -329,8 +327,6 @@ def run_assistant(query, messages=None):
                 }
             )
 
-        print("Step4")
-        print(messages)
         # Step 4: Generate response and citations
         response = co.chat(
             model=model, messages=messages, tools=tools
@@ -354,7 +350,8 @@ def run_assistant(query, messages=None):
         for citation in response.message.citations:
             print(citation, "\n")
 
-    return messages
+    #return messages
+    return response.message.content[0].text
 
 # Input for AGENT Prompt
 prompt1 = st.text_input("プロンプトを入力してください:","【楽天モバイル】利用獲得ポイントのお知らせがあるか確認して、タイトルは確認するお知らせにして3日後のカレンダーに午後12時に1時間のイベントを作成してください。")
