@@ -61,6 +61,19 @@ def search_emails(query):
 def create_calendar_event(date: str, time: str, duration: int):
     #title = st.input( .input("タイトルを入力してください")
     title = "スケジュール"
+
+    st.markdown("""
+    <script>
+        function getUserInput() {
+            var userInput = prompt("Please enter your input:");
+            if (userInput != null) {
+                document.getElementById("output").innerText = "You entered: " + userInput;
+            }
+        }
+    </script>
+    <button onclick="getUserInput()">Click me</button>
+    <p id="output"></p>
+""", unsafe_allow_html=True)
     
     headers = {
         'SPOAuthentication': 'Hanipman',
