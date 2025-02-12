@@ -64,14 +64,14 @@ def create_calendar_event(date: str, time: str, duration: int):
 
     @st.dialog("Cast your vote")
     def vote(item):
+
+    if "vote" not in st.session_state:
+        st.write("Vote for your favorite")
         st.write(f"Why is {item} your favorite?")
         reason = st.text_input("Because...")
         if st.button("Submit"):
             st.session_state.vote = {"item": item, "reason": reason}
             st.rerun()
-
-    if "vote" not in st.session_state:
-        st.write("Vote for your favorite")
         if st.button("A"):
             vote("A")
         if st.button("B"):
