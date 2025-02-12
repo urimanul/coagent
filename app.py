@@ -10,7 +10,6 @@ import os
 load_dotenv()
 
 responded = None
-rsn = "ABC"
 
 if not os.environ.get("COHERE_API_KEY"):
     os.environ["COHERE_API_KEY"] = getpass.getpass("COHERE API Key:")
@@ -21,14 +20,9 @@ co = cohere.ClientV2(api_key=os.environ.get("COHERE_API_KEY"))
 def vote(item):
     st.write(f"Why is {item} your favorite?")
     reason = st.text_input("Because...")
-    global rsn
-    rsn = reason
-    st.write(rsn)
     if st.button("Submit"):
         st.session_state.vote = {"item": item, "reason": reason}
         st.rerun()
-        
-        return reason
 
 def unicode_unescape(data):
     if isinstance(data, dict):
@@ -396,8 +390,6 @@ if st.button("実行"):
     st.write(responded)
 
 if st.button("表示"):
-    resp = vote("A")
+    vote("A")
     st.write("Response")
-    st.write(resp)
-    
-    st.write(rsn)
+    st.write(f"You voted for {st.session_state.vote['item']} because {st.session_state.vote['reason']}")
