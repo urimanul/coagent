@@ -70,24 +70,46 @@ def create_calendar_event(date: str, time: str, duration: int):
             st.session_state.vote = {"title": title}
             st.rerun()
 
-            headers = {
-                'SPOAuthentication': 'Hanipman',
-            }
+    headers = {
+        'SPOAuthentication': 'Hanipman',
+    }
     
-            sqlcmd = f"https://www.ryhintl.com/scripts/exc2spo.exe/getjson?sqlcmd=insert into O365GW.Events (subject,organizer_emailAddress_address,UserId) values('{title}','agent@mail.com','60cdf6be-44df-4c0b-aa34-72ad4380e6c9')"
+    #start = date+' '+time
+    start = datetime.strptime(date+' '+time+':00', '%Y/%m/%d %H:%M:%S')
+    #start = st.strftime('%Y/%m/%d %H:%M:%S')
+    #sdatetime = datetime.strptime(start, '%Y-%m-%d %H:%M:%S')
+    #end = date+' '+time+'+'+str(duration)
+    dt = datetime.strptime(date+' '+time+':00', '%Y/%m/%d %H:%M:%S')
+    new_dt = dt + timedelta(hours=duration)
+    end = new_dt.strftime('%Y-%m-%d %H:%M:%S')
+    #end = datetime.strptime(str(new_dt), '%Y/%m/%d %H:%M:%S')
     
-            response = requests.get(sqlcmd, headers=headers)
+    #print(start)
+    #print(end)
+    #sqlcmd = f"https://www.ryhintl.com/scripts/exc2spo.exe/getjson?sqlcmd=insert into O365GW.Events (subject,organizer_emailAddress_address,UserId) #values('スケジュール','agent@mail.com','60cdf6be-44df-4c0b-aa34-72ad4380e6c9')"
+    
+    sqlcmd = f"https://www.ryhintl.com/scripts/exc2spo.exe/getjson?sqlcmd=insert into O365GW.Events (subject,organizer_emailAddress_address,UserId) values('{title}','agent@mail.com','60cdf6be-44df-4c0b-aa34-72ad4380e6c9')"
+    
+    #print(sqlcmd)
+    
+    '''sqlcmd = f"https://www.ryhintl.com/scripts/exc2spo.exe/getjson?sqlcmd=insert into O365GW.Events (subject,start_dateTime,end_dateTime,organizer_emailAddress_address) values('{title}','{start}','{end}','agent@mail.com') where UserId = '60cdf6be-44df-4c0b-aa34-72ad4380e6c9'"'''
+    
+    response = requests.get(sqlcmd, headers=headers)
 
-            if response.status_code == 200:
-                result = response.content.decode('utf-8') 
+    if response.status_code == 200:
+        result = response.content.decode('utf-8')
+        
+    #events = eval(result)
+    #print(result)
     
-            global responded
-            responded = f"{title}を{date} の {time} に {duration} 時間のイベントを作成しました。"
     
-            return {
-                "is_success": True,
-                "message": f"{title}を{date} の {time} に {duration} 時間のイベントを作成しました。",
-            }
+    global responded
+    responded = f"{title}を{date} の {time} に {duration} 時間のイベントを作成しました。"
+    
+    return {
+        "is_success": True,
+        "message": f"{title}を{date} の {time} に {duration} 時間のイベントを作成しました。",
+    }
 
 
 functions_map = {
