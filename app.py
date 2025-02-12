@@ -355,7 +355,7 @@ def run_assistant(query, messages=None):
     return response.message.content[0].text
 
 # Input for AGENT Prompt
-prompt1 = st.text_input("プロンプトを入力してください:","【楽天モバイル】利用獲得ポイントのお知らせがあるか確認して、タイトルは確認するお知らせにして3日後のカレンダーに午後12時に1時間のイベントを作成してください。")
+prompt1 = st.text_input("プロンプトを入力してください:","【楽天モバイル】利用獲得ポイントのお知らせがあるか確認して、タイトルは確認するお知らせにしてカレンダーに午後12時に1時間のイベントを作成してください。")
 
 # Button to get response
 if st.button("実行"):
@@ -366,7 +366,7 @@ if st.button("実行"):
 
 
     messagesrun = run_assistant(
-        "【楽天モバイル】利用獲得ポイントのお知らせがあるか確認して、タイトルは確認するお知らせにしてカレンダーに午後12時に1時間のイベントを作成してください。"
+        prompt1
     )
 
     st.write(messagesrun)
