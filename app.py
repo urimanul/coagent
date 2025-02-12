@@ -17,7 +17,6 @@ if not os.environ.get("COHERE_API_KEY"):
 co = cohere.ClientV2(api_key=os.environ.get("COHERE_API_KEY"))
 
 st.session_state.disabled = True
-st.session_state.acted = None
 
 @st.dialog(" ")
 def vote(item):
@@ -32,7 +31,6 @@ def vote(item):
         st.session_state['key'] = reason
         st.session_state['vote'] = {"item": item, "reason": reason}
         st.rerun()
-        st.session_state.acted = "voted"
 
 def unicode_unescape(data):
     if isinstance(data, dict):
@@ -77,8 +75,6 @@ def search_emails(query):
 
 
 def create_calendar_event(date: str, time: str, duration: int):
-    #title = st.input( .input("タイトルを入力してください")
-    #title = "スケジュール"
     title = st.session_state.vote['reason']
 
     @st.dialog("イベントタイトル")
@@ -212,9 +208,8 @@ if "vote" not in st.session_state:
         #vote("B")
 else:
     #f"You voted for {st.session_state.vote['item']} because {st.session_state.vote['reason']}"
-    f"{st.session_state.vote['reason']}がタイトルとして入力されました。"
-    if st.session_state.acted == "voted":
-        st.toast('タイトルが設定されました。実行ボタンを押してください。')
+    f"{st.session_state.vote['reason']}がタイトルとして入力されました。実行ボタンを押してください。"
+    #st.toast('タイトルが設定されました。実行ボタンを押してください。')
 
 
 # Input for AGENT Prompt
@@ -311,9 +306,6 @@ if st.button("生成"):
             print(citation, "\n")
             
     st.write(response.message.content[0].text)
-    st.session_state.acted = "else"
-
-
 
 def run_assistant(query, messages=None):
     if messages is None:
@@ -404,7 +396,6 @@ prompt1 = st.text_input("プロンプトを入力してください:","【楽天
 if st.button("実行"):
     with st.status("処理中...", expanded=False) as status:
         if "vote" in st.session_state:
-            st.session_state.acted = "voted"
             model = "command-r-plus-08-2024"
 
             system_message = """## Task and Context
