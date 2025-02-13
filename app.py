@@ -414,3 +414,22 @@ if st.button("実行"):
 
         else:
             vote("タイトル")
+
+
+cdata = {
+    "pie_chart": {
+        "labels": ["Nike", "Adidas", "PUMA"],
+        "sizes": [50, 30, 20]
+    }
+}
+
+data = json.load(cdata)
+
+# Pie Chart
+st.subheader("Pie Chart")
+pie_chart_data = cdata['pie_chart']
+plt.pie(pie_chart_data['sizes'], labels=pie_chart_data['labels'])
+st.pyplot( plt )
+
+# Footer
+st.write("Powered by Streamlit")
