@@ -416,14 +416,14 @@ if st.button("実行"):
             vote("タイトル")
 
 
-cdata = {
+data = {
     "pie_chart": {
         "labels": ["Nike", "Adidas", "PUMA"],
         "sizes": [50, 30, 20]
     }
 }
 
-data = json.load(cdata)
+cdata = json.load(data)
 
 # Pie Chart
 st.subheader("Pie Chart")
