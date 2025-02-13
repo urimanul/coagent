@@ -417,20 +417,33 @@ if st.button("実行"):
             vote("タイトル")
 
 
-cdata = {
+'''cdata = {
     "pie_chart": {
         "labels": ["United States", "Canada", "Brazil", "Argentina", "Paraguay", "United Kingdom", "Germany", "Spain", "Russia", "China", "Japan", "South Korea", "Australia", "South Africa", "Egypt"],
         "sizes": [1001740, 1001965, 1005260, 1002790, 1003140, 1006175, 1004575, 1003680, 1002260, 1002910, 1008400, 1001325, 2006140, 1000940, 1001630]
     }
-}
+}'''
 
 #cdata = json.load(data)
 
 # Pie Chart
-st.subheader("Pie Chart")
-pie_chart_data = cdata['pie_chart']
-plt.pie(pie_chart_data['sizes'], labels=pie_chart_data['labels'])
-st.pyplot( plt )
+#st.subheader("Pie Chart")
+#pie_chart_data = cdata['pie_chart']
+#plt.pie(pie_chart_data['sizes'], labels=pie_chart_data['labels'])
+#st.pyplot( plt )
+
+@st.cache
+def load_data():
+    response = requests.get("https://ckan.pf-sapporo.jp/api/action/datastore_search?resource_id=5678d107-d9a4-4f81-8f57-092aac11db5e&limit=100", verify=False)
+    response_json = MyDecoder().decode(response.text)
+    df = pd.json_normalize(response_json, record_path=["result", "records"])
+    return df
+
+df = load_data().copy()
+df_pt = df[df['アレイ'].isin(['J1'])].set_index('日時')[['大通り→札幌', '札幌→大通り']]
+
+st.write(df_pt)
+st.line_chart(df_pt)
 
 # Footer
 st.write("Powered by Streamlit")
