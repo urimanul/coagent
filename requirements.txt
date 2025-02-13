@@ -3,4 +3,4 @@ python-dotenv
 cohere
 requests
 datetime
-matplotlib.pyplot
+matplotlib
