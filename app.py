@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 import getpass
 import os
 import matplotlib.pyplot as plt
+import pandas as pd
 
 class MyDecoder(json.JSONDecoder):
     def decode(self, s):
