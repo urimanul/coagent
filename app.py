@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 from dotenv import load_dotenv
 import getpass
 import os
+import matplotlib.pyplot as plt
 
 load_dotenv()
 
