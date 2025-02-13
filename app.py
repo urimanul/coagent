@@ -8,6 +8,26 @@ import getpass
 import os
 import matplotlib.pyplot as plt
 
+class MyDecoder(json.JSONDecoder):
+    def decode(self, s):
+        result = super().decode(s)
+        return self._decode(result)
+
+    def _decode(self, o):
+        if isinstance(o, str):            
+            try:
+                if '.' in o:
+                    return float(o)
+                return int(o)
+            except ValueError:
+                return o
+        elif isinstance(o, dict):
+            return {k: self._decode(v) for k, v in o.items()}
+        elif isinstance(o, list):
+            return [self._decode(v) for v in o]
+        else:
+            return o
+
 load_dotenv()
 
 responded = None
@@ -432,12 +452,10 @@ if st.button("実行"):
 #plt.pie(pie_chart_data['sizes'], labels=pie_chart_data['labels'])
 #st.pyplot( plt )
 
-@st.cache
-def load_data():
-    response = requests.get("https://ckan.pf-sapporo.jp/api/action/datastore_search?resource_id=5678d107-d9a4-4f81-8f57-092aac11db5e&limit=100", verify=False)
-    response_json = MyDecoder().decode(response.text)
-    df = pd.json_normalize(response_json, record_path=["result", "records"])
-    return df
+
+response = requests.get("https://ckan.pf-sapporo.jp/api/action/datastore_search?resource_id=5678d107-d9a4-4f81-8f57-092aac11db5e&limit=100", verify=False)
+response_json = MyDecoder().decode(response.text)
+df = pd.json_normalize(response_json, record_path=["result", "records"])
 
 df = load_data().copy()
 df_pt = df[df['アレイ'].isin(['J1'])].set_index('日時')[['大通り→札幌', '札幌→大通り']]
