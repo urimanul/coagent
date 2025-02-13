@@ -419,7 +419,7 @@ if st.button("実行"):
 
 cdata = {
     "pie_chart": {
-        "labels": ["米国", "カナダ", "ブラジル", "アルゼンチン", "パラグアイ", "英国", "ドイツ", "スペイン", "ロシア", "中国", "日本", "韓国", "オーストラリア", "南アフリカ", "エジプト"],
+        "labels": ["United States", "Canada", "Brazil", "Argentina", "Paraguay", "United Kingdom", "Germany", "Spain", "Russia", "China", "Japan", "South Korea", "Australia", "South Africa", "Egypt"],
         "sizes": [1001740, 1001965, 1005260, 1002790, 1003140, 1006175, 1004575, 1003680, 1002260, 1002910, 1008400, 1001325, 2006140, 1000940, 1001630]
     }
 }
