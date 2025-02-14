@@ -458,7 +458,7 @@ response = requests.get("https://ckan.pf-sapporo.jp/api/action/datastore_search?
 response_json = MyDecoder().decode(response.text)
 df = pd.json_normalize(response_json, record_path=["result", "records"])
 
-df_pt = df[df['アレイ'].isin(['J2'])].set_index('日時')[['大通り→札幌', '札幌→大通り']]
+df_pt = df[df['アレイ'].isin(['J1'])].set_index('日時')[['大通り→札幌', '札幌→大通り']]
 
 st.write(df_pt)
 st.line_chart(df_pt)
