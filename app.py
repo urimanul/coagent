@@ -337,7 +337,7 @@ if st.button("GET"):
 
     # Append assistant response to the chat history
     rev_messages.append(
-        {"role": "assistant", "content": response.message.content[0].text}
+        {"role": "assistant", "content": rev_response.message.content[0].text}
     )
 
     # Print final response
