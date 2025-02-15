@@ -75,6 +75,13 @@ def search_faqs(query):
     
     return faqs
 
+def search_rev(query):
+    response1 = requests.get("https://www.ryhintl.com/dbjson/getjson?sqlcmd=select * from spo_sumrevenue", verify=False)
+    response_json1 = MyDecoder().decode(response1.text)
+    rev = pd.DataFrame(response_json1)
+    
+    return rev
+
 
 def search_emails(query):
     # 今日の日付を取得
@@ -151,6 +158,7 @@ def create_calendar_event(date: str, time: str, duration: int):
 
 functions_map = {
     "search_faqs": search_faqs,
+    "search_rev": search_rev,
     "search_emails": search_emails,
     "create_calendar_event": create_calendar_event,
 }
@@ -163,6 +171,23 @@ tools = [
         "function": {
             "name": "search_faqs",
             "description": "ユーザーのクエリを指定すると、企業のよくある質問 (FAQ) リストを検索し、クエリに最も関連性の高い一致を返します。",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "query": {
+                        "type": "string",
+                        "description": "The query from the user",
+                    }
+                },
+                "required": ["query"],
+            },
+        },
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "search_rev",
+            "description": "ユーザーのクエリを指定すると、売上情報 (spo_sumrevenue) リストを検索し、クエリに最も関連性の高い一致を返します。",
             "parameters": {
                 "type": "object",
                 "properties": {
@@ -232,6 +257,101 @@ else:
     #f"You voted for {st.session_state.vote['item']} because {st.session_state.vote['reason']}"
     f"{st.session_state.vote['reason']}がタイトルとして入力されました。実行ボタンを押してください。"
     #st.toast('タイトルが設定されました。実行ボタンを押してください。')
+
+
+# Input for AGENT Prompt
+rev_promp = st.text_input("プロンプトを入力してください:","楽天からのメッセージはありますか?もし、あればその件名、送信者、URLを表示してください。")
+
+# Button to get response
+if st.button("生成"):
+    # Create custom system message
+    system_message = """## Task and Context
+    あなたは、新入社員の最初の 1 週間を支援するアシスタントです。あなたは彼らの質問に答え、彼らのニーズに応えます。"""
+    
+    # Step 1: Get user message
+    message = rev_prompt
+
+    # Add the system and user messages to the chat history
+    rev_messages = [
+        {"role": "system", "content": system_message},
+        {"role": "user", "content": message},
+    ]
+
+    # Step 2: Tool planning and calling
+    response = co.chat(
+        model="command-r-plus-08-2024", messages=rev_messages, tools=tools
+    )
+
+    if response.message.tool_calls:
+        print("Tool plan:")
+        print(response.message.tool_plan, "\n")
+        print("Tool calls:")
+        for tc in response.message.tool_calls:
+            print(
+                f"Tool name: {tc.function.name} | Parameters: {tc.function.arguments}"
+            )
+
+        # Append tool calling details to the chat history
+        rev_messages.append(
+            {
+                "role": "assistant",
+                "tool_calls": response.message.tool_calls,
+                "tool_plan": response.message.tool_plan,
+            }
+        )
+
+
+    # Step 3: Tool execution
+    for tc in response.message.tool_calls:
+        tool_result = functions_map[tc.function.name](
+            **json.loads(tc.function.arguments)
+        )
+        tool_content = []
+        for data in tool_result:
+            tool_content.append(
+                {
+                    "type": "document",
+                    "document": {"data": json.dumps(data)},
+                }
+            )
+            # Optional: add an "id" field in the "document" object, otherwise IDs are auto-generated
+        # Append tool results to the chat history
+        rev_messages.append(
+            {
+                "role": "tool",
+                "tool_call_id": tc.id,
+                "content": tool_content,
+            }
+        )
+
+        print("Tool results:")
+        for result in tool_content:
+            decoded_data = unicode_unescape(result)
+            print(decoded_data)
+
+
+    # Step 4: Response and citation generation
+    response = co.chat(
+        model="command-r-plus-08-2024", messages=messages, tools=tools
+    )
+
+    # Append assistant response to the chat history
+    rev_messages.append(
+        {"role": "assistant", "content": response.message.content[0].text}
+    )
+
+    # Print final response
+    print("Response:")
+    print(response.message.content[0].text)
+    print("=" * 50)
+
+    # Print citations (if any)
+    if response.message.citations:
+        print("\nCITATIONS:")
+        for citation in response.message.citations:
+            print(citation, "\n")
+            
+    st.write(response.message.content[0].text)
 
 
 # Input for AGENT Prompt
