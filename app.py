@@ -306,8 +306,12 @@ if st.button("GET"):
         tool_result = functions_map[tc.function.name](
             **json.loads(tc.function.arguments)
         )
-        st.write("TOOL RESULT")
-        st.write(tool_result)
+        
+        cjson = tool_result
+        rev = pd.DataFrame(cjson)
+        st.write(rev)
+        st.bar_chart(rev, x="country", y="amount")
+        
         tool_content = []
         for data in tool_result:
             tool_content.append(
