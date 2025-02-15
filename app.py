@@ -78,9 +78,9 @@ def search_faqs(query):
 def search_rev(query):
     response1 = requests.get("https://www.ryhintl.com/dbjson/getjson?sqlcmd=select * from spo_sumrevenue", verify=False)
     response_json1 = MyDecoder().decode(response1.text)
-    rev = pd.DataFrame(response_json1)
+    #rev = pd.DataFrame(response_json1)
     
-    return rev
+    return response_json1
 
 
 def search_emails(query):
