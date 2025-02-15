@@ -263,7 +263,7 @@ else:
 rev_promp = st.text_input("プロンプトを入力してください:","北米の売上情報がありますか?もし、あればその結果を表示してください。")
 
 # Button to get response
-if st.button("生成"):
+if st.button("GET"):
     # Create custom system message
     system_message = """## Task and Context
     あなたは、新入社員の最初の 1 週間を支援するアシスタントです。あなたは彼らの質問に答え、彼らのニーズに応えます。"""
