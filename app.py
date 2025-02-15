@@ -587,6 +587,9 @@ df = pd.json_normalize(response_json, record_path=["result", "records"])
 
 df_pt = df[df['アレイ'].isin(['J1'])].set_index('日時')[['大通り→札幌', '札幌→大通り']]
 
+st.write(" ")
+st.write(" ")
+st.write(" ")
 st.write("札幌チカホ人流データ")
 st.write(df_pt)
 st.line_chart(df_pt)
