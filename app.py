@@ -332,7 +332,7 @@ if st.button("GET"):
 
     # Step 4: Response and citation generation
     response = co.chat(
-        model="command-r-plus-08-2024", messages=messages, tools=tools
+        model="command-r-plus-08-2024", messages=rev_messages, tools=tools
     )
 
     # Append assistant response to the chat history
