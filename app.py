@@ -462,7 +462,8 @@ st.write(response_json)
 response1 = requests.get("https://www.ryhintl.com/dbjson/getjson?sqlcmd=select%20* from spo_sumrevenue", verify=False)
 response_json1 = MyDecoder().decode(response1.text)
 #df1 = pd.json_normalize(response_json1, record_path=[])
-st.write(response_json1)
+rev = pd.DataFrame(data)
+st.write(rev)
 
 df_pt = df[df['アレイ'].isin(['J1'])].set_index('日時')[['大通り→札幌', '札幌→大通り']]
 
