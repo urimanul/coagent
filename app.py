@@ -260,7 +260,7 @@ else:
 
 
 # Input for AGENT Prompt
-rev_promp = st.text_input("プロンプトを入力してください:","北米の売上情報がありますか?もし、あればその結果を表示してください。")
+rev_prompt = st.text_input("プロンプトを入力してください:","北米の売上情報がありますか?もし、あればその結果を表示してください。")
 
 # Button to get response
 if st.button("GET"):
