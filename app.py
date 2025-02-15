@@ -302,7 +302,7 @@ if st.button("GET"):
 
 
     # Step 3: Tool execution
-    for tc in rev_response.message.tool_calls:
+    for tc in response.message.tool_calls:
         tool_result = functions_map[tc.function.name](
             **json.loads(tc.function.arguments)
         )
