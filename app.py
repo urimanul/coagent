@@ -269,24 +269,24 @@ if st.button("GET"):
     あなたは、新入社員の最初の 1 週間を支援するアシスタントです。あなたは彼らの質問に答え、彼らのニーズに応えます。"""
     
     # Step 1: Get user message
-    message = rev_prompt
+    rev_message = rev_prompt
 
     # Add the system and user messages to the chat history
     rev_messages = [
         {"role": "system", "content": system_message},
-        {"role": "user", "content": message},
+        {"role": "user", "content": rev_message},
     ]
 
     # Step 2: Tool planning and calling
-    response = co.chat(
+    rev_response = co.chat(
         model="command-r-plus-08-2024", messages=rev_messages, tools=tools
     )
 
-    if response.message.tool_calls:
+    if rev_response.message.tool_calls:
         print("Tool plan:")
-        print(response.message.tool_plan, "\n")
+        print(rev_response.message.tool_plan, "\n")
         print("Tool calls:")
-        for tc in response.message.tool_calls:
+        for tc in rev_response.message.tool_calls:
             print(
                 f"Tool name: {tc.function.name} | Parameters: {tc.function.arguments}"
             )
@@ -295,14 +295,14 @@ if st.button("GET"):
         rev_messages.append(
             {
                 "role": "assistant",
-                "tool_calls": response.message.tool_calls,
-                "tool_plan": response.message.tool_plan,
+                "tool_calls": rev_response.message.tool_calls,
+                "tool_plan": rev_response.message.tool_plan,
             }
         )
 
 
     # Step 3: Tool execution
-    for tc in response.message.tool_calls:
+    for tc in rev_response.message.tool_calls:
         tool_result = functions_map[tc.function.name](
             **json.loads(tc.function.arguments)
         )
@@ -331,7 +331,7 @@ if st.button("GET"):
 
 
     # Step 4: Response and citation generation
-    response = co.chat(
+    rev_response = co.chat(
         model="command-r-plus-08-2024", messages=rev_messages, tools=tools
     )
 
@@ -342,16 +342,16 @@ if st.button("GET"):
 
     # Print final response
     print("Response:")
-    print(response.message.content[0].text)
+    print(rev_response.message.content[0].text)
     print("=" * 50)
 
     # Print citations (if any)
     if response.message.citations:
         print("\nCITATIONS:")
-        for citation in response.message.citations:
+        for citation in rev_response.message.citations:
             print(citation, "\n")
             
-    st.write(response.message.content[0].text)
+    st.write(rev_response.message.content[0].text)
 
 
 # Input for AGENT Prompt
