@@ -335,7 +335,6 @@ if st.button("GET"):
         model="command-r-plus-08-2024", messages=rev_messages, tools=tools
     )
 
-    st.write(rev_response.message.content[0].text)
     # Append assistant response to the chat history
     rev_messages.append(
         {"role": "assistant", "content": rev_response.message.content[0].text}
