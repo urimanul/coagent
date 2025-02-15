@@ -327,7 +327,7 @@ if st.button("GET"):
         print("Tool results:")
         for result in tool_content:
             decoded_data = unicode_unescape(result)
-            print(decoded_data)
+            st。write(decoded_data)
 
 
     # Step 4: Response and citation generation
