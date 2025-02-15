@@ -457,6 +457,12 @@ if st.button("実行"):
 response = requests.get("https://ckan.pf-sapporo.jp/api/action/datastore_search?resource_id=5678d107-d9a4-4f81-8f57-092aac11db5e&limit=100", verify=False)
 response_json = MyDecoder().decode(response.text)
 df = pd.json_normalize(response_json, record_path=["result", "records"])
+st.write(df)
+
+response1 = requests.get("https://www.ryhintl.com/dbjson/getjson?sqlcmd=select%20* from spo_sumrevenue", verify=False)
+response_json1 = MyDecoder().decode(response1.text)
+df1 = pd.json_normalize(response_json1, record_path=[])
+st.write(df1)
 
 df_pt = df[df['アレイ'].isin(['J1'])].set_index('日時')[['大通り→札幌', '札幌→大通り']]
 
