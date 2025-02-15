@@ -585,12 +585,6 @@ response = requests.get("https://ckan.pf-sapporo.jp/api/action/datastore_search?
 response_json = MyDecoder().decode(response.text)
 df = pd.json_normalize(response_json, record_path=["result", "records"])
 
-response1 = requests.get("https://www.ryhintl.com/dbjson/getjson?sqlcmd=select * from spo_sumrevenue", verify=False)
-response_json1 = MyDecoder().decode(response1.text)
-rev = pd.DataFrame(response_json1)
-st.write(rev)
-st.bar_chart(rev, x="country", y="amount")
-
 df_pt = df[df['アレイ'].isin(['J1'])].set_index('日時')[['大通り→札幌', '札幌→大通り']]
 
 st.write(df_pt)
