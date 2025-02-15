@@ -462,7 +462,7 @@ response1 = requests.get("https://www.ryhintl.com/dbjson/getjson?sqlcmd=select *
 response_json1 = MyDecoder().decode(response1.text)
 rev = pd.DataFrame(response_json1)
 st.write(rev)
-st.line_chart(rev)
+st.bar_chart(rev)
 
 df_pt = df[df['アレイ'].isin(['J1'])].set_index('日時')[['大通り→札幌', '札幌→大通り']]
 
