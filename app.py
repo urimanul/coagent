@@ -459,10 +459,10 @@ response_json = MyDecoder().decode(response.text)
 df = pd.json_normalize(response_json, record_path=["result", "records"])
 st.write(response_json)
 
-response1 = requests.get("https://www.ryhintl.com/dbjson/getjson?sqlcmd=select%20* from spo_sumrevenue", verify=False)
+response1 = requests.get("https://www.ryhintl.com/dbjson/getjson?sqlcmd=select * from spo_sumrevenue", verify=False)
 response_json1 = MyDecoder().decode(response1.text)
 #df1 = pd.json_normalize(response_json1, record_path=[])
-rev = pd.DataFrame(data)
+rev = pd.DataFrame(response_json1)
 st.write(rev)
 
 df_pt = df[df['アレイ'].isin(['J1'])].set_index('日時')[['大通り→札幌', '札幌→大通り']]
