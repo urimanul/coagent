@@ -302,7 +302,7 @@ if st.button("GET"):
 
 
     # Step 3: Tool execution
-    for tc in response.message.tool_calls:
+    for tc in rev_response.message.tool_calls:
         tool_result = functions_map[tc.function.name](
             **json.loads(tc.function.arguments)
         )
@@ -346,7 +346,7 @@ if st.button("GET"):
     print("=" * 50)
 
     # Print citations (if any)
-    if response.message.citations:
+    if rev_response.message.citations:
         print("\nCITATIONS:")
         for citation in rev_response.message.citations:
             print(citation, "\n")
