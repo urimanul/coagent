@@ -306,6 +306,8 @@ if st.button("GET"):
         tool_result = functions_map[tc.function.name](
             **json.loads(tc.function.arguments)
         )
+        st.write("TOOL RESULT")
+        st.write(tool_result)
         tool_content = []
         for data in tool_result:
             tool_content.append(
@@ -352,6 +354,7 @@ if st.button("GET"):
             print(citation, "\n")
             
     st.write(rev_response.message.content[0].text)
+    
 
 
 # Input for AGENT Prompt
