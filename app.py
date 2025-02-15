@@ -134,7 +134,7 @@ def create_calendar_event(date: str, time: str, duration: int):
     
     sqlcmd = f"https://www.ryhintl.com/scripts/exc2spo.exe/getjson?sqlcmd=insert into O365GW.Events (subject,,start_dateTime,end_dateTime,organizer_emailAddress_address,UserId, start_timeZone, end_timeZone) values('{title}','{start}','{end}','agent@mail.com','60cdf6be-44df-4c0b-aa34-72ad4380e6c9', 'Asia/Tokyo', 'Asia/Tokyo')"
     
-    #print(sqlcmd)
+    st.write(sqlcmd)
     
     '''sqlcmd = f"https://www.ryhintl.com/scripts/exc2spo.exe/getjson?sqlcmd=insert into O365GW.Events (subject,start_dateTime,end_dateTime,organizer_emailAddress_address) values('{title}','{start}','{end}','agent@mail.com') where UserId = '60cdf6be-44df-4c0b-aa34-72ad4380e6c9'"'''
     
