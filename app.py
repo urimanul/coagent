@@ -32,7 +32,6 @@ class MyDecoder(json.JSONDecoder):
 load_dotenv()
 
 responded = None
-crev = None
 
 if not os.environ.get("COHERE_API_KEY"):
     os.environ["COHERE_API_KEY"] = getpass.getpass("COHERE API Key:")
@@ -307,10 +306,10 @@ if st.button("GET"):
         tool_result = functions_map[tc.function.name](
             **json.loads(tc.function.arguments)
         )
-
-        global crev
-        crev = pd.DataFrame(tool_result)
         
+        crev = pd.DataFrame(tool_result)
+        #st.write(crev)
+        st.bar_chart(crev, x="country", y="amount")
         
         tool_content = []
         for data in tool_result:
@@ -359,8 +358,6 @@ if st.button("GET"):
             
     st.write(rev_response.message.content[0].text)
 
-st.write(crev)
-st.bar_chart(crev, x="country", y="amount")
     
 
 
