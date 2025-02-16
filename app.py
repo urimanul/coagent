@@ -228,7 +228,7 @@ tools = [
                 "properties": {
                     "date": {
                         "type": "string",
-                        "description": "the date on which the event starts, formatted as yyyy/mm/dd",
+                        "description": "the date on which the event starts, formatted as yyyy-mm-dd",
                     },
                     "time": {
                         "type": "string",
