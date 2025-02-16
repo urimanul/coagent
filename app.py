@@ -118,8 +118,8 @@ def create_calendar_event(date: str, time: str, duration: int):
         'SPOAuthentication': 'Hanipman',
     }
     
-    start = date+' '+time
-    #start = datetime.strptime(date+' '+time+':00', '%Y/%m/%d %H:%M:%S')
+    #start = date+' '+time
+    start = datetime.strptime(date+' '+time+':00', '%Y-%m-%d %H:%M:%S')
     #start = st.strftime('%Y/%m/%d %H:%M:%S')
     #sdatetime = datetime.strptime(start, '%Y-%m-%d %H:%M:%S')
     #end = date+' '+time+'+'+str(duration)
