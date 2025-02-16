@@ -501,7 +501,7 @@ def run_assistant(query, messages=None):
         print(response.message.tool_plan, "\n")
         print("Tool calls:")
         for tc in response.message.tool_calls:
-            print(
+            st.write(
                 f"Tool name: {tc.function.name} | Parameters: {tc.function.arguments}"
             )
         print("=" * 50)
