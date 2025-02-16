@@ -487,7 +487,7 @@ def run_assistant(query, messages=None):
 
     # Step 2: Generate tool calls (if any)
     #response = co.chat(model=model, messages=messages, tools=tools)
-    response = co.chat(model=model, messages=messages, tools=["search_emails"])
+    response = co.chat(model=model, messages=messages, tools=tools[0])
     #st.write("TOOL CALL")
     #st.write(response)
 
