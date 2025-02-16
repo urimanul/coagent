@@ -146,16 +146,11 @@ def create_calendar_event(date: str, time: str, duration: int):
     end = new_dt.strftime('%Y-%m-%d %H:%M:%S')
     #end = datetime.strptime(str(new_dt), '%Y/%m/%d %H:%M:%S')
 
-    st.write(date)
-    st.write(time)
-    st.write(title)
-    st.write(start)
-    st.write(end)
     #sqlcmd = f"https://www.ryhintl.com/scripts/exc2spo.exe/getjson?sqlcmd=insert into O365GW.Events (subject,organizer_emailAddress_address,UserId) #values('スケジュール','agent@mail.com','60cdf6be-44df-4c0b-aa34-72ad4380e6c9')"
     
     sqlcmd = f"https://www.ryhintl.com/scripts/exc2spo.exe/getjson?sqlcmd=insert into O365GW.Events (subject,start_dateTime,end_dateTime,organizer_emailAddress_address,UserId, start_timeZone, end_timeZone) values('{title}','{start}','{end}','agent@mail.com','60cdf6be-44df-4c0b-aa34-72ad4380e6c9', 'Asia/Tokyo', 'Asia/Tokyo')"
     
-    st.write(sqlcmd)
+    #st.write(sqlcmd)
     
     '''sqlcmd = f"https://www.ryhintl.com/scripts/exc2spo.exe/getjson?sqlcmd=insert into O365GW.Events (subject,start_dateTime,end_dateTime,organizer_emailAddress_address) values('{title}','{start}','{end}','agent@mail.com') where UserId = '60cdf6be-44df-4c0b-aa34-72ad4380e6c9'"'''
     
@@ -411,7 +406,7 @@ if st.button("生成"):
         print(response.message.tool_plan, "\n")
         print("Tool calls:")
         for tc in response.message.tool_calls:
-            print(
+            st.write(
                 f"Tool name: {tc.function.name} | Parameters: {tc.function.arguments}"
             )
 
