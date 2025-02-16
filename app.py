@@ -124,7 +124,7 @@ def create_calendar_event(date: str, time: str, duration: int):
     #sdatetime = datetime.strptime(start, '%Y-%m-%d %H:%M:%S')
     #end = date+' '+time+'+'+str(duration)
     
-    dt = datetime.strptime(date+' '+time+':00', '%Y/%m/%d %H:%M:%S')
+    dt = datetime.strptime(date+' '+time+':00', '%Y-%m-%d %H:%M:%S')
     new_dt = dt + timedelta(hours=duration)
     end = new_dt.strftime('%Y-%m-%d %H:%M:%S')
     #end = datetime.strptime(str(new_dt), '%Y/%m/%d %H:%M:%S')
