@@ -129,6 +129,8 @@ def create_calendar_event(date: str, time: str, duration: int):
     end = new_dt.strftime('%Y-%m-%d %H:%M:%S')
     #end = datetime.strptime(str(new_dt), '%Y/%m/%d %H:%M:%S')
 
+    st.write(date)
+    st.write(time)
     st.write(title)
     st.write(start)
     st.write(end)
@@ -498,8 +500,7 @@ def run_assistant(query, messages=None):
             tool_result = functions_map[tc.function.name](
                 **json.loads(tc.function.arguments)
             )
-            st.write("TOOL RESULT")
-            st.write(tool_result)
+            
             tool_content = []
             for data in tool_result:
                 tool_content.append(
