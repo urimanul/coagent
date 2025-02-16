@@ -93,7 +93,7 @@ def search_emails(query):
     headers = {
         'SPOAuthentication': 'Hanipman',
     }
-    response = requests.get("https://www.ryhintl.com/scripts/exc2spo.exe/getjson?sqlcmd=select subject,sender_emailAddress_address as `from`,sender_emailAddress_address as `to`,receivedDateTime as `date`,webLink as `text` from O365GW.Messages where UserId = '60cdf6be-44df-4c0b-aa34-72ad4380e6c9' and receivedDateTime <= '"+str(today)+"' and receivedDateTime >= '"+str(one_week_ago)+"' order by date desc", headers=headers)
+    response = requests.get("https://www.ryhintl.com/scripts/exc2spo.exe/getjson?sqlcmd=select subject,receivedDateTime,sender_emailAddress_address as `from`,sender_emailAddress_address as `to`,receivedDateTime as `date`,webLink as `text` from O365GW.Messages where UserId = '60cdf6be-44df-4c0b-aa34-72ad4380e6c9' and receivedDateTime <= '"+str(today)+"' and receivedDateTime >= '"+str(one_week_ago)+"' order by date desc", headers=headers)
 
     if response.status_code == 200:
         result = response.content.decode('utf-8')
