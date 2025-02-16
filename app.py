@@ -522,6 +522,11 @@ def run_assistant(query, messages=None):
                 }
             )
 
+            st.write("Tool results:")
+            for result in tool_content:
+                decoded_data = unicode_unescape(result)
+                st.write(decoded_data)
+
         # Step 4: Generate response and citations
         response = co.chat(
             model=model, messages=messages, tools=tools
