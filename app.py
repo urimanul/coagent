@@ -383,7 +383,7 @@ if st.button("確認"):
 
 
 # Input for AGENT Prompt
-prompt = st.text_input("プロンプトを入力してください:","楽天からのメッセージはありますか?もし、あればその件名、送信者、URLを表示してください。")
+prompt = st.text_input("プロンプトを入力してください:","楽天からのメッセージはありますか?もし、あればその件名、送信者、日付、URLを表示してください。")
 
 # Button to get response
 if st.button("生成"):
