@@ -66,14 +66,31 @@ def unicode_unescape(data):
 
 # Create the tools
 def search_faqs(query):
-    response = requests.get("https://www.ryhintl.com/dbjson/getjson?sqlcmd=SELECT concat(q,': ',a) as `text` FROM faq")
+    # 今日の日付を取得
+    today = datetime.today()
+
+    # 一週間前の日付を計算
+    one_week_ago = today - timedelta(days=7)
+    
+    headers = {
+        'SPOAuthentication': 'Hanipman',
+    }
+    response = requests.get("https://www.ryhintl.com/scripts/exc2spo.exe/getjson?sqlcmd=select subject,receivedDateTime,sender_emailAddress_address as `from`,sender_emailAddress_address as `to`,receivedDateTime as `date`,webLink as `text` from O365GW.Messages where UserId = '60cdf6be-44df-4c0b-aa34-72ad4380e6c9' and receivedDateTime <= '"+str(today)+"' and receivedDateTime >= '"+str(one_week_ago)+"' order by date desc", headers=headers)
 
     if response.status_code == 200:
-        result = response.content.decode('utf-8') 
+        result = response.content.decode('utf-8')
     
-    faqs = eval(result)
+    emails = eval(result)
     
-    return faqs
+    return emails
+    #response = requests.get("https://www.ryhintl.com/dbjson/getjson?sqlcmd=SELECT concat(q,': ',a) as `text` FROM faq")
+
+    #if response.status_code == 200:
+        #result = response.content.decode('utf-8') 
+    
+    #faqs = eval(result)
+    
+    #return faqs
 
 def search_rev(query):
     response1 = requests.get("https://www.ryhintl.com/dbjson/getjson?sqlcmd=select * from spo_sumrevenue", verify=False)
