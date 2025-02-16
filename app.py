@@ -501,8 +501,8 @@ def run_assistant(query, messages=None):
                 **json.loads(tc.function.arguments)
             )
 
-            st.write("TOOL RESULT")
-            st.write(tool_result)
+            #st.write("TOOL RESULT")
+            #st.write(tool_result)
             tool_content = []
             for data in tool_result:
                 tool_content.append(
